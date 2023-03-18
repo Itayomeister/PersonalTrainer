@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/ItemMain"
+            android:title="Main"/>
+        <item
+            android:id="@+id/ItemStatistics"
+            android:title="Statistics"/>
+
+    </group>
+
+    <item android:title="Management">
+        <menu>
+            <item
+                android:id="@+id/ItemSettings"
+                android:title="Settings"/>
+            <item
+                android:id="@+id/ItemFriends"
+                android:title="Friends"/>
+        </menu>
+    </item>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/ItemAbout"
+                android:title="About"/>
+            <item
+                android:id="@+id/ItemShare"
+                android:title="Share"/>
+            <item
+                android:id="@+id/ItemRate"
+                android:title="Rate"/>
+            <item
+                android:id="@+id/ItemPrivacy"
+                android:title="Privacy"/>
+            <item
+                android:id="@+id/ItemContactUs"
+                android:title="Contact us"/>
+
+        </menu>
+    </item>
+
+    <item android:title="Exit">
+        <menu>
+            <item
+                android:id="@+id/ItemExit"
+                android:title="Exit"/>
+        </menu>
+    </item>
+
+
+
+
+</menu>

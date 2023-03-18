@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment">
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_training"
+        android:text="generate training plan"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_trainingPlan"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="175dp"
+        android:text="Please generate a plan"
+        android:gravity="center"
+        />
+
+    <EditText
+        android:id="@+id/editTextRunningDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editTextSetsForPullups"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:ems="10"
+        android:minHeight="48dp"
+        android:hint="Running distance"
+        android:inputType="numberDecimal"/>
+
+    <EditText
+        android:id="@+id/editTextSetsForPullups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editTextSetsForPushups"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:ems="10"
+        android:minHeight="48dp"
+        android:hint="Sets for pullups"
+        android:inputType="numberDecimal"/>
+
+    <EditText
+        android:id="@+id/editTextSetsForPushups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:hint="Sets for pushups"
+        android:inputType="numberDecimal"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/editTextRunningDistance"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/btn_SubmitData"
+        android:text="Submit" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_error"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/btn_SubmitData"
+        android:layout_marginBottom="5dp"/>
+
+</RelativeLayout>

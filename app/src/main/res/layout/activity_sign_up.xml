@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUpActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/txt_signUpHead"
+        android:text="Sign Up Page"
+        android:textStyle="bold"
+        android:textSize="50sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Full name:"
+        android:id="@+id/txt_fullNameSignUp"
+        android:layout_below="@+id/txt_signUpHead"
+        android:layout_marginStart="15dp"
+        android:textSize="17.5sp"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_nameId"
+        android:layout_below="@+id/txt_fullNameSignUp"
+        android:hint="Full name:"
+        android:textSize="20sp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="2.5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone number:"
+        android:id="@+id/txt_phoneSignUp"
+        android:layout_below="@+id/editText_nameId"
+        android:layout_marginStart="15dp"
+        android:textSize="17.5sp"
+        android:layout_marginTop="5dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_phoneId"
+        android:layout_below="@+id/txt_phoneSignUp"
+        android:hint="Phone number:"
+        android:textSize="20sp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="2.5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email:"
+        android:id="@+id/txt_emailSignUp"
+        android:layout_below="@+id/editText_phoneId"
+        android:layout_marginStart="15dp"
+        android:textSize="17.5sp"
+        android:layout_marginTop="5dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_emailId"
+        android:layout_below="@+id/txt_emailSignUp"
+        android:hint="Email:"
+        android:textSize="20sp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="2.5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_TraineeLevelSignUp"
+        android:text="Level:"
+        android:layout_below="@+id/editText_emailId"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="15dp"
+        android:textSize="17.5sp"/>
+
+    <Spinner
+        android:id="@+id/spinner_levelId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_TraineeLevelSignUp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="2.5dp"
+        android:entries="@array/traineeLevel"
+        android:spinnerMode="dropdown" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/btn_SignUp"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:layout_below="@+id/spinner_levelId"
+        android:layout_marginTop="100dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_errorSignUp"
+        android:textColor="#ff0000"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"/>
+
+</RelativeLayout>

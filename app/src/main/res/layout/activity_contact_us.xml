@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContactUsActivity">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name_editTxt"
+        android:layout_centerHorizontal="true"
+        android:hint="Name:                   "
+        android:layout_marginTop="125dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phoneNumber_editTxt"
+        android:hint = "Phone number:      "
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/name_editTxt"
+        android:inputType="phone"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="75dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/application_editTxt"
+        android:layout_centerHorizontal="true"
+        android:hint="Write your application here"
+        android:layout_below="@+id/phoneNumber_editTxt"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sendApplication_btn"
+        android:text="send"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:scaleX="1.25"
+        android:scaleY="1.25"/>
+
+</RelativeLayout>

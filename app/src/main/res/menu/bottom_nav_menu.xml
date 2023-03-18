@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/ItemLeaderboard"
+        android:title="Leaderboard"
+        android:icon="@drawable/ic_baseline_publish_24"/>
+
+    <item
+        android:id="@+id/ItemHome"
+        android:title="Home"
+        android:icon="@drawable/ic_baseline_home_24"/>
+
+    <item
+        android:id="@+id/ItemTodo"
+        android:title="ToDo List"
+        android:icon="@drawable/ic_baseline_library_add_check_24"/>
+
+
+</menu>
