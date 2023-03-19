@@ -1,63 +1,34 @@
 {
   "project_info": {
-    "project_number": "519988848884",
-    "firebase_url": "https://betaapp-3591f-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "betaapp-3591f",
-    "storage_bucket": "betaapp-3591f.appspot.com"
+    "project_number": "367887590976",
+    "firebase_url": "https://personaltrainer-itay55-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "personaltrainer-itay55",
+    "storage_bucket": "personaltrainer-itay55.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:519988848884:android:4850041b7787864dced6a1",
-        "android_client_info": {
-          "package_name": "com.itay.RoadToBattlefield"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "519988848884-c8rjlp27ij9lrf4prla1gc6ulal0u3p6.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBCBpxYC7tLSJveIxYNLV0VqlSae7v_sHc"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "519988848884-c8rjlp27ij9lrf4prla1gc6ulal0u3p6.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:519988848884:android:665ec1133367d708ced6a1",
+        "mobilesdk_app_id": "1:367887590976:android:98093a81b410a076f021a5",
         "android_client_info": {
           "package_name": "com.itay.roadtobattlefield"
         }
       },
       "oauth_client": [
         {
-          "client_id": "519988848884-c8rjlp27ij9lrf4prla1gc6ulal0u3p6.apps.googleusercontent.com",
+          "client_id": "367887590976-6mvua2tur5bkon16p62d3ik6bjpemmtj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBCBpxYC7tLSJveIxYNLV0VqlSae7v_sHc"
+          "current_key": "AIzaSyBJ7BUH0hGToW2pvRdgaIi_HULyvhPSJBA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "519988848884-c8rjlp27ij9lrf4prla1gc6ulal0u3p6.apps.googleusercontent.com",
+              "client_id": "367887590976-6mvua2tur5bkon16p62d3ik6bjpemmtj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

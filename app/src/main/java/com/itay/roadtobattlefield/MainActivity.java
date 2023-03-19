@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, TurnOffFirstyActivity.class));
                         break;
                     case R.id.ItemShare:
-                        Toast.makeText(MainActivity.this, "share", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, Training.class));
                         break;
                     case R.id.ItemPrivacy:
                         Toast.makeText(MainActivity.this, "Privacy", Toast.LENGTH_SHORT).show();
