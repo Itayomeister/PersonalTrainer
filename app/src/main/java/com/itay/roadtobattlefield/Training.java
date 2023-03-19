@@ -47,6 +47,8 @@ public class Training extends AppCompatActivity {
     }
 
     private void createCountdownTimer(int time) {
+        btn.setEnabled(false);
+        btn.setText("Left: " + counter);
         progressBar.setMax(time * 1000);
         countDownTimer = new CountDownTimer(time * 1000, 10) {
             @Override
