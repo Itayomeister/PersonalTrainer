@@ -1,7 +1,6 @@
-package com.itay.roadtobattlefield;
+package com.itay.roadtobattlefield.Activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -13,9 +12,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.TypedValue;
-import android.view.DragEvent;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -25,8 +22,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.logging.Level;
+import com.itay.roadtobattlefield.Fragments.HomeFragment;
+import com.itay.roadtobattlefield.Fragments.LeaderboardFragment;
+import com.itay.roadtobattlefield.R;
+import com.itay.roadtobattlefield.Fragments.StatisticsFragment;
+import com.itay.roadtobattlefield.Fragments.ToDoListFragment;
+import com.itay.roadtobattlefield.Classes.Trainee;
+import com.itay.roadtobattlefield.TraineeLevel;
+import com.itay.roadtobattlefield.TurnOffFirstyActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -154,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, TurnOffFirstyActivity.class));
                         break;
                     case R.id.ItemShare:
-                        startActivity(new Intent(MainActivity.this, Training.class));
+                        startActivity(new Intent(MainActivity.this, TrainingActivity.class));
                         break;
                     case R.id.ItemPrivacy:
                         Toast.makeText(MainActivity.this, "Privacy", Toast.LENGTH_SHORT).show();

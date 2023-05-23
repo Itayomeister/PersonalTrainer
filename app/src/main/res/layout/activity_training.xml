@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Training">
+    tools:context=".Activities.TrainingActivity">
     
     <Button
         android:layout_width="wrap_content"
@@ -16,8 +16,8 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_centerInParent="true"
         android:indeterminateOnly="false"
         android:progressDrawable="@drawable/custom_progress"
@@ -27,7 +27,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/timer"
-        android:text="40"
+        android:text="00 : 00"
         android:layout_centerInParent="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_Details"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btn_startSet"
+        android:text="Let's Start!"
+        android:layout_marginTop="15dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_startSet"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btn_training"
+        android:layout_marginTop="15dp"
+        android:text="Finish Set" />
 
 </RelativeLayout>

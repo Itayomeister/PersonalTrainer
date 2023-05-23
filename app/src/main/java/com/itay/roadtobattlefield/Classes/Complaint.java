@@ -1,4 +1,4 @@
-package com.itay.roadtobattlefield;
+package com.itay.roadtobattlefield.Classes;
 
 public class Complaint {
     private  String name, email, phone, complaint;

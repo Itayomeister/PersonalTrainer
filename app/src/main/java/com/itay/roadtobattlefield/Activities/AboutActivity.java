@@ -1,4 +1,4 @@
-package com.itay.roadtobattlefield;
+package com.itay.roadtobattlefield.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.itay.roadtobattlefield.R;
 
 public class AboutActivity extends AppCompatActivity {
 

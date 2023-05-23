@@ -1,4 +1,6 @@
-package com.itay.roadtobattlefield;
+package com.itay.roadtobattlefield.Classes;
+
+import com.itay.roadtobattlefield.TraineeLevel;
 
 public class Trainee {
     private String fullName;
@@ -59,16 +61,5 @@ public class Trainee {
 
     public void setTraineeLevel(TraineeLevel traineeLevel) {
         this.traineeLevel = traineeLevel;
-    }
-
-    public void setTraineeLevel(String traineeLevel){
-        if(TraineeLevel.Begginer.toString() == traineeLevel)
-            this.traineeLevel = TraineeLevel.Begginer;
-        else if(TraineeLevel.Advanced.toString() == traineeLevel)
-            this.traineeLevel = TraineeLevel.Advanced;
-        else if(TraineeLevel.Intermediate.toString() == traineeLevel)
-            this.traineeLevel = TraineeLevel.Intermediate;
-        else if(TraineeLevel.Hardcore.toString() == traineeLevel)
-            this.traineeLevel = TraineeLevel.Hardcore;
     }
 }

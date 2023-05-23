@@ -2,5 +2,6 @@ package com.itay.roadtobattlefield;
 
 public enum DAOtype {
     Trainee,
-    Complaint
+    Complaint,
+    Workout
 }

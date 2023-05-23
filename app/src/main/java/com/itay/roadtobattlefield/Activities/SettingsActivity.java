@@ -1,4 +1,4 @@
-package com.itay.roadtobattlefield;
+package com.itay.roadtobattlefield.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.itay.roadtobattlefield.Fragments.HomeFragment;
+import com.itay.roadtobattlefield.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

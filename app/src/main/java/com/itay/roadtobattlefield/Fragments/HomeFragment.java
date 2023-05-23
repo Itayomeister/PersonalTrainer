@@ -1,4 +1,4 @@
-package com.itay.roadtobattlefield;
+package com.itay.roadtobattlefield.Fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.itay.roadtobattlefield.Activities.SettingsActivity;
+import com.itay.roadtobattlefield.R;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 

@@ -1,4 +1,4 @@
-package com.itay.roadtobattlefield;
+package com.itay.roadtobattlefield.Classes;
 
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.itay.roadtobattlefield.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class todoRecView_Adapter extends RecyclerView.Adapter<todoRecView_Adapter.ViewHolder> {
 

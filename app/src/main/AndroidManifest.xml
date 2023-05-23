@@ -18,7 +18,7 @@
         android:theme="@style/Theme.RoadToBattlefield"
         tools:targetApi="31">
         <activity
-            android:name=".Training"
+            android:name=".Activities.TrainingActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -32,27 +32,27 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".Activities.SignUpActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ContactUsActivity"
+            android:name=".Activities.ContactUsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".Activities.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".AboutActivity"
+            android:name=".Activities.AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

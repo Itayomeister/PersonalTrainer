@@ -1,4 +1,4 @@
-package com.itay.roadtobattlefield;
+package com.itay.roadtobattlefield.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.itay.roadtobattlefield.Classes.Complaint;
+import com.itay.roadtobattlefield.Classes.DAO;
+import com.itay.roadtobattlefield.DAOtype;
+import com.itay.roadtobattlefield.R;
 
 public class ContactUsActivity extends AppCompatActivity {
 
@@ -42,7 +47,7 @@ public class ContactUsActivity extends AppCompatActivity {
         email = MainActivity.trainee.getEmail();
         phone = MainActivity.trainee.getPhoneNum();
         complaint = editTxt_complaint.getText().toString();
-        dao.add(new Complaint(name, email, phone, complaint)).addOnSuccessListener(suc -> {
+        dao.addComplaint(new Complaint(name, email, phone, complaint)).addOnSuccessListener(suc -> {
             Toast.makeText(this, "Added complaint of: " + name, Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(er -> {
             Toast.makeText(this, "error " + er.getMessage(), Toast.LENGTH_SHORT).show();
