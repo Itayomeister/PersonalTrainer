@@ -53,7 +53,8 @@
         android:hint="Phone number:"
         android:textSize="20sp"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="2.5dp"/>
+        android:layout_marginTop="2.5dp"
+        android:inputType="phone"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -73,7 +74,8 @@
         android:hint="Email:"
         android:textSize="20sp"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="2.5dp"/>
+        android:layout_marginTop="2.5dp"
+        android:inputType="textEmailAddress"/>
 
     <TextView
         android:layout_width="wrap_content"

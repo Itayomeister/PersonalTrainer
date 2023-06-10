@@ -53,7 +53,7 @@ public class todoRecView_Adapter extends RecyclerView.Adapter<todoRecView_Adapte
             @Override
             public void onClick(View view) {
                 new MaterialAlertDialogBuilder(view.getContext())
-                        .setTitle("Add a goal")
+                        .setTitle("Delete a goal")
                         .setMessage("Are you sure you want to delete " + holder.todo_item.getText().toString().toUpperCase() + " as a goal?")
                         .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override

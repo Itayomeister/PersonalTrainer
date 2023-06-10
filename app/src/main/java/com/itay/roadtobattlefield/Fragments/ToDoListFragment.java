@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.itay.roadtobattlefield.Activities.MainActivity;
 import com.itay.roadtobattlefield.Classes.todoRecView_Adapter;
 import com.itay.roadtobattlefield.R;
 
@@ -30,8 +31,6 @@ public class ToDoListFragment extends Fragment {
 
     FloatingActionButton addGoal;
     EditText newGoal;
-    ArrayList<String> checkBoxes = new ArrayList<>();
-    ArrayList<Boolean> checked = new ArrayList<>();
     RecyclerView goalsRecView;
     RelativeLayout screen;
 
@@ -54,44 +53,48 @@ public class ToDoListFragment extends Fragment {
         addGoal = view.findViewById(R.id.fab_addGoal);
         newGoal = view.findViewById(R.id.editText_addGoal);
         screen = view.findViewById(R.id.screen);
-        int screenHeight = screen.getHeight();
         goalsRecView = view.findViewById(R.id.goalRecView);
         todoRecView_Adapter adapter = new todoRecView_Adapter();
-        adapter.setGoals(checkBoxes);
-        adapter.setChecked(checked);
+        adapter.setGoals(MainActivity.trainee.checkBoxes);
+        adapter.setChecked(MainActivity.trainee.checked);
         goalsRecView.setAdapter(adapter);
         goalsRecView.setLayoutManager(new LinearLayoutManager(getContext()));
-        if (checkBoxes.size() == 0){
-            checkBoxes.add("train");
-            checked.add(false);
+        if (MainActivity.trainee.checkBoxes.size() == 0) {
+            MainActivity.trainee.checkBoxes.add("train");
+            MainActivity.trainee.checked.add(false);
             todoRecView_Adapter.itemPos++;
         }
 
         addGoal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new MaterialAlertDialogBuilder(getContext())
-                        .setTitle("Add a goal")
-                        .setMessage("Are you sure you want to add that goal?")
-                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                if (newGoal.getText().length() == 0) {
+                    Toast.makeText(getContext(), "Make sure to type in a goal!", Toast.LENGTH_SHORT).show();
+                } else {
+                    new MaterialAlertDialogBuilder(getContext())
+                            .setTitle("Add a goal")
+                            .setMessage("Are you sure you want to add that goal?")
+                            .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
 
-                            }
-                        })
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                addGoalCheckBox(newGoal.getText().toString());
-                            }
-                        })
-                        .show();
+                                }
+                            })
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    addGoalCheckBox(newGoal.getText().toString());
+                                }
+                            })
+                            .show();
+                }
             }
         });
 
-        for (int i = 0; i < checkBoxes.size(); i++) {
-            if(checked.get(i)){}
-                //base on string and add no dup goals func;
+        for (int i = 0; i < MainActivity.trainee.checkBoxes.size(); i++) {
+            if (MainActivity.trainee.checked.get(i)) {
+            }
+            //base on string and add no dup goals func;
         }
 
         itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
@@ -102,8 +105,8 @@ public class ToDoListFragment extends Fragment {
 
                 adapter.swapId(draggedPos, targetPos);
 
-                Collections.swap(checked, draggedPos, targetPos);
-                Collections.swap(checkBoxes, draggedPos, targetPos);
+                Collections.swap(MainActivity.trainee.checked, draggedPos, targetPos);
+                Collections.swap(MainActivity.trainee.checkBoxes, draggedPos, targetPos);
 
                 adapter.notifyItemMoved(draggedPos, targetPos);
 
@@ -121,29 +124,29 @@ public class ToDoListFragment extends Fragment {
 
     public void addGoalCheckBox(String goal) {
         goal = fixGoal(goal);
-        if(goal == ""){
+        if (goal.trim().isEmpty()) {
             Toast.makeText(getContext(), "Make sure to type in a goal!", Toast.LENGTH_SHORT).show();
             return;
         }
-        for (int i = 0; i < checkBoxes.size(); i++){
-            if(checkBoxes.get(i).equals(goal)){
+        for (int i = 0; i < MainActivity.trainee.checkBoxes.size(); i++) {
+            if (MainActivity.trainee.checkBoxes.get(i).equals(goal)) {
                 Toast.makeText(getContext(), "Your goal already exsits!", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
         Toast.makeText(getContext(), "New goal!", Toast.LENGTH_SHORT).show();
-        checkBoxes.add(goal);
-        checked.add(false);
+        MainActivity.trainee.checkBoxes.add(goal);
+        MainActivity.trainee.checked.add(false);
         todoRecView_Adapter.itemPos++;
     }
 
-    String fixGoal(String str){
-        if(str == "")
+    String fixGoal(String str) {
+        if (str == "")
             return str;
-        if(str.startsWith(" "))
-            return fixGoal(str.substring(1, str.length()-1));
-        if(str.endsWith(" "))
-            return fixGoal(str.substring(0, str.length()-1));
+        if (str.startsWith(" "))
+            return fixGoal(str.substring(1, str.length() - 1));
+        if (str.endsWith(" "))
+            return fixGoal(str.substring(0, str.length() - 1));
         return str;
     }
 }

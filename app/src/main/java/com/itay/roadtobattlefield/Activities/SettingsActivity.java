@@ -21,7 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        HomeFragment.settingsChecked = true;
+
 
         radioButton_hard = findViewById(R.id.dificullty_hard);
         radioButton_easy = findViewById(R.id.dificullty_easy);
@@ -36,17 +36,9 @@ public class SettingsActivity extends AppCompatActivity {
         radioButton_easy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(radioButton_easy.isChecked())
-                    HomeFragment.hard = false;
-                else
-                    HomeFragment.hard = true;
+
             }
         });
-
-        if(HomeFragment.hard)
-            radioButton_hard.setChecked(true);
-        else
-            radioButton_easy.setChecked(true);
 
     }
 }

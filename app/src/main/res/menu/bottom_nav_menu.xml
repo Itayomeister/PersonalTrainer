@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/ItemLeaderboard"
+        android:id="@+id/ItemRunning"
         android:title="Leaderboard"
-        android:icon="@drawable/ic_baseline_publish_24"/>
+        android:icon="@drawable/ic_baseline_run_24"/>
 
     <item
         android:id="@+id/ItemHome"

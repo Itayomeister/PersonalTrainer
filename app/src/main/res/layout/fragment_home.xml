@@ -25,56 +25,22 @@
         android:gravity="center"
         />
 
-    <EditText
-        android:id="@+id/editTextRunningDistance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/editTextSetsForPullups"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:minHeight="48dp"
-        android:hint="Running distance"
-        android:inputType="numberDecimal"/>
-
-    <EditText
-        android:id="@+id/editTextSetsForPullups"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/editTextSetsForPushups"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:minHeight="48dp"
-        android:hint="Sets for pullups"
-        android:inputType="numberDecimal"/>
-
-    <EditText
-        android:id="@+id/editTextSetsForPushups"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"
-        android:hint="Sets for pushups"
-        android:inputType="numberDecimal"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/editTextRunningDistance"
-        android:layout_marginBottom="5dp"
-        android:id="@+id/btn_SubmitData"
-        android:text="Submit" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="85dp"
+        android:id="@+id/btn_startTrain"
+        android:text="Start Training" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txt_error"
         android:layout_centerHorizontal="true"
-        android:layout_above="@id/btn_SubmitData"
+        android:layout_above="@id/btn_startTrain"
         android:layout_marginBottom="5dp"/>
 
 </RelativeLayout>

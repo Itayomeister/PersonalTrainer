@@ -17,19 +17,32 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.itay.roadtobattlefield.Classes.DAO;
+import com.itay.roadtobattlefield.Classes.StrengthExercises.GeneralExercise;
+import com.itay.roadtobattlefield.Classes.WorkoutGenerator;
+import com.itay.roadtobattlefield.DAOtype;
 import com.itay.roadtobattlefield.Fragments.HomeFragment;
-import com.itay.roadtobattlefield.Fragments.LeaderboardFragment;
 import com.itay.roadtobattlefield.R;
-import com.itay.roadtobattlefield.Fragments.StatisticsFragment;
+import com.itay.roadtobattlefield.Fragments.RunningFragment;
 import com.itay.roadtobattlefield.Fragments.ToDoListFragment;
 import com.itay.roadtobattlefield.Classes.Trainee;
 import com.itay.roadtobattlefield.TraineeLevel;
 import com.itay.roadtobattlefield.TurnOffFirstyActivity;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,12 +52,14 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     HomeFragment homeFragment = new HomeFragment();
-    LeaderboardFragment leaderboardFragment = new LeaderboardFragment();
     ToDoListFragment toDoListFragment = new ToDoListFragment();
-    StatisticsFragment statisticsFragment = new StatisticsFragment();
+    RunningFragment runningFragment = new RunningFragment();
+    public static WorkoutGenerator workoutGenerator;
+    public static GeneralExercise[] workoutPlan;
 
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor sharedPrefEditor;
+    public static DatabaseReference databaseReference;
 
     FrameLayout frame_main;
 
@@ -53,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     int bottomNavHeight = 0;
 
     Resources resources;
+    DAO dao;
 
     int bottomNavView;
 
@@ -62,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static int userId = 0;
 
+    public static boolean networkStatus = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +88,17 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences = MainActivity.this.getPreferences(Context.MODE_PRIVATE);
         sharedPrefEditor = sharedPreferences.edit();
+        dao = new DAO(DAOtype.Trainee);
+        databaseReference = dao.getDatabaseReference();
 
         firsty = sharedPreferences.getBoolean("First time in RTB app", true);
 
-        if (firsty)
+        if (firsty) {
+            userId = 0;
+            sharedPrefEditor.putInt("userId RTB", userId);
             startActivity(new Intent(MainActivity.this, SignUpActivity.class));
-        else if (trainee == null) {
-            trainee = new Trainee("bot", "bot@.com", "05222222", TraineeLevel.Intermediate);
+        }else {
+            loadData();
         }
 
         bottomNavView = View.VISIBLE;
@@ -116,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.ItemHome:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
                         return true;
-                    case R.id.ItemLeaderboard:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, leaderboardFragment).commit();
+                    case R.id.ItemRunning:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, runningFragment).commit();
                         return true;
                     case R.id.ItemTodo:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, toDoListFragment).commit();
@@ -144,12 +166,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.ItemStatistics:
                         getSupportFragmentManager().beginTransaction().remove(homeFragment).commit();
                         getSupportFragmentManager().beginTransaction().remove(toDoListFragment).commit();
-                        getSupportFragmentManager().beginTransaction().remove(leaderboardFragment).commit();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frame, statisticsFragment).commit();
+                        getSupportFragmentManager().beginTransaction().remove(runningFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame, runningFragment).commit();
                         bottomNavView = (int) View.INVISIBLE;
                         break;
                     case R.id.ItemMain:
-                        getSupportFragmentManager().beginTransaction().remove(statisticsFragment).commit();
+                        getSupportFragmentManager().beginTransaction().remove(runningFragment).commit();
                         bottomNavView = (int) View.VISIBLE;
                         bottomNavigationView.setSelectedItemId(R.id.ItemHome);
                         break;
@@ -205,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
 
 
-                if (homeFragment.isVisible() || toDoListFragment.isVisible() || leaderboardFragment.isVisible()) {
+                if (homeFragment.isVisible() || toDoListFragment.isVisible() || runningFragment.isVisible()) {
                     if (slideOffset - drawerLatestOffset < 0)
                         bottomNavView = View.VISIBLE;
                     else
@@ -237,7 +259,54 @@ public class MainActivity extends AppCompatActivity {
         if (drawerLayout.isOpen()) {
             drawerLayout.closeDrawer(GravityCompat.START);
             bottomNavigationView.setVisibility(View.VISIBLE);
-        } else
-            super.onBackPressed();
+        } else {
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle("Exit")
+                    .setMessage("Are you sure you want to exit the app?")
+                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    })
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            refreshData();
+                        }
+                    })
+                    .show();
+        }
     }
+
+    private void refreshData() {
+        userId = sharedPreferences.getInt("userId RTB", 0);
+        dao.updateTrainee(trainee, userId, true);
+        new Thread(() -> {
+            while (!dao.exitApp) {
+
+            }
+            finishAffinity();
+        }).start();
+    }
+
+    private void loadData() {
+        userId = sharedPreferences.getInt("userId RTB", 0);
+        Toast.makeText(this, "id: " + userId, Toast.LENGTH_SHORT).show();
+        String objectKey = String.valueOf(userId);
+        databaseReference.child(objectKey).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DataSnapshot dataSnapshot = task.getResult();
+                if (dataSnapshot.exists()) {
+                    trainee = dataSnapshot.getValue(Trainee.class);
+                    Toast.makeText(this, "Loaded", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "did not found", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+            }
+        });
+    }
+
+
 }

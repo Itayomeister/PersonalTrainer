@@ -3,7 +3,11 @@ package com.itay.roadtobattlefield.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.itay.roadtobattlefield.Classes.DAO;
 import com.itay.roadtobattlefield.DAOtype;
+import com.itay.roadtobattlefield.NetworkReceiver;
 import com.itay.roadtobattlefield.R;
 import com.itay.roadtobattlefield.Classes.Trainee;
 import com.itay.roadtobattlefield.TraineeLevel;
@@ -24,15 +29,22 @@ public class SignUpActivity extends AppCompatActivity {
     EditText nameId, phoneId, emailId;
     Button btnSubmit;
     Spinner levelSpinner;
-    TraineeLevel traineeLevel;
-    Trainee trainee;
+    static TraineeLevel traineeLevel;
+    static Trainee trainee;
     public static String name, phone, email;
-    DAO dao;
+    private DAO dao;
+
+    private NetworkReceiver networkReceiver;
+    private IntentFilter intentFilter;
+    static public int userId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        networkReceiver = new NetworkReceiver();
+        intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
 
         error = findViewById(R.id.txt_errorSignUp);
         nameId = findViewById(R.id.editText_nameId);
@@ -47,24 +59,41 @@ public class SignUpActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signUp();
+                if (MainActivity.networkStatus)
+                    signUp();
+                else
+                    Toast.makeText(SignUpActivity.this, "Check for Internet connection to register", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    void signUp(){
-        if(nameId.getText().length() == 0)
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Register the receiver when the activity is resumed
+        registerReceiver(networkReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Unregister the receiver when the activity is paused
+        unregisterReceiver(networkReceiver);
+    }
+
+    void signUp() {
+        if (nameId.getText().length() == 0)
             error.setText("Please fill in your name");
-        else if(emailId.getText().length() == 0)
+        else if (emailId.getText().length() == 0)
             error.setText("Please fill in your email");
-        else if(phoneId.getText().length() == 0)
+        else if (phoneId.getText().length() == 0)
             error.setText("Please fill in your phone number");
-        else{
+        else {
             name = nameId.getText().toString();
             email = emailId.getText().toString();
             phone = phoneId.getText().toString();
 
-            switch (levelSpinner.getSelectedItem().toString()){
+            switch (levelSpinner.getSelectedItem().toString()) {
                 case "Beginner":
                     traineeLevel = TraineeLevel.Begginer;
                     break;
@@ -79,26 +108,37 @@ public class SignUpActivity extends AppCompatActivity {
                     break;
             }
 
-            trainee = new Trainee(name, email, phone, traineeLevel);
-            MainActivity.trainee = trainee;
+            dao.generateTraineeId();
+            Handler handler = new Handler();
+            Runnable temp = new Runnable() {
+                @Override
+                public void run() {
+                    if (userId == -1) {
+                        handler.postDelayed(this, 250);
+                    }
+                    else {
+                        MainActivity.userId = userId;
+                        trainee = new Trainee(name, email, phone, traineeLevel, userId);
+                        dao.addTrainee(trainee).addOnSuccessListener(suc -> {
+                            popMessage("Trainee Saved!");
+                            MainActivity.sharedPrefEditor.putBoolean("First time in RTB app", false).apply();
+                            MainActivity.sharedPrefEditor.putInt("userId RTB", MainActivity.userId).apply();
+                            MainActivity.trainee = trainee;
+                            finish();
+                        }).addOnFailureListener(er -> {
+                            popMessage("Error: " + er.getMessage());
+                        });
+                    }
+                }
+            };
+            temp.run();
 
-            dao.addTrainee(trainee).addOnSuccessListener(suc -> {
-                Toast.makeText(this, "Trainee Saved!" , Toast.LENGTH_SHORT).show();
-                MainActivity.sharedPrefEditor.putBoolean("First time in the app", false).apply();
-                MainActivity.sharedPrefEditor.putString("Trainee name", name).apply();
-                MainActivity.sharedPrefEditor.putString("Trainee email", email).apply();
-                MainActivity.sharedPrefEditor.putString("Trainee phone", phone).apply();
-                MainActivity.sharedPrefEditor.putString("Trainee level", traineeLevel.toString()).apply();
-                finish();
-            }).addOnFailureListener(er -> {
-                Toast.makeText(this, "error " + er.getMessage(), Toast.LENGTH_SHORT).show();
-            });
         }
     }
 
     @Override
     public void onBackPressed() {
-        if(MainActivity.sharedPreferences.getBoolean("First time in the app", true)){
+        if (MainActivity.sharedPreferences.getBoolean("First time in the app", true)) {
             new MaterialAlertDialogBuilder(this)
                     .setTitle("Exit?")
                     .setMessage("Are you sure you want to exit without signing up? \n " +
@@ -118,4 +158,10 @@ public class SignUpActivity extends AppCompatActivity {
                     .show();
         }
     }
+
+    public void popMessage(String str) {
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+
+    }
+
 }

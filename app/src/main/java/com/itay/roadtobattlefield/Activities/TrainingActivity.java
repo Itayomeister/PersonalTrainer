@@ -4,17 +4,24 @@ import static java.lang.Math.round;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.itay.roadtobattlefield.Classes.StrengthExercises.GeneralExercise;
 import com.itay.roadtobattlefield.Classes.StrengthExercises.MuscleGroups;
+import com.itay.roadtobattlefield.Classes.WorkoutGenerator;
+import com.itay.roadtobattlefield.MusicService;
 import com.itay.roadtobattlefield.R;
 
 public class TrainingActivity extends AppCompatActivity {
@@ -28,20 +35,21 @@ public class TrainingActivity extends AppCompatActivity {
     Vibrator vibrator;
 
     Button btn, btn_Sets;
+    ImageButton btn_Volume;
     TextView txt, txt_Details;
-    private GeneralExercise[] exercises = new GeneralExercise[3];
+
+    private Intent volumeIntent;
+    private boolean volume = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training);
-
-        setPullUp();
-        setPushUp();
-        setDragonFly();
+        volumeIntent = new Intent(this, MusicService.class);
 
         progressBar = findViewById(R.id.progressBar);
         btn = findViewById(R.id.btn_training);
+        btn_Volume = findViewById(R.id.btn_music);
         btn_Sets = findViewById(R.id.btn_startSet);
         btn_Sets.setVisibility(View.INVISIBLE);
         btn_Sets.setEnabled(false);
@@ -56,11 +64,54 @@ public class TrainingActivity extends AppCompatActivity {
                 StartTraining();
             }
         });
+
+
+        btn_Volume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(volume){
+                    stopService(volumeIntent);
+                    btn_Volume.setImageResource(R.drawable.ic_baseline_volume_off_24);
+                    volume = false;
+                } else {
+                    startService(volumeIntent);
+                    btn_Volume.setImageResource(R.drawable.ic_baseline_volume_on_24);
+                    volume = true;
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(volumeIntent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Exit")
+                .setMessage("Are you sure you want to exit the training session?")
+                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .show();
     }
 
     private void StartTraining() {
         btn_Sets.setVisibility(View.VISIBLE);
         btn_Sets.setEnabled(true);
+        message = "remaining " + MainActivity.workoutPlan[0].getNAME() + " Sets: " + MainActivity.workoutPlan[0].getNumber_of_sets();
 
 
         btn_Sets.setOnClickListener(new View.OnClickListener() {
@@ -71,16 +122,16 @@ public class TrainingActivity extends AppCompatActivity {
         });
 
         new Thread(() -> {
-            for (this.exercise = 0; exercise < exercises.length; exercise++) {
-                for (int j = 0; j < exercises[exercise].getNumber_of_sets(); j++) {
-                    setsRemaining = exercises[exercise].getNumber_of_sets() - j;
+            for (this.exercise = 0; exercise < MainActivity.workoutPlan.length; exercise++) {
+                for (int j = 0; j < MainActivity.workoutPlan[exercise].getNumber_of_sets(); j++) {
+                    setsRemaining = MainActivity.workoutPlan[exercise].getNumber_of_sets() - j;
                     while (btn_Sets.isEnabled()) {
                     }
-                    message = "remaining " + exercises[exercise].getNAME() + " Sets: " + setsRemaining;
+                    message = "remaining " + MainActivity.workoutPlan[exercise].getNAME() + " Sets: " + setsRemaining;
                     runOnUiThread(() -> {
                         txt_Details.setText(message);
-                        createCountdownTimer(exercises[exercise].getRest_time_minutes()
-                                , exercises[exercise].getRest_time_seconds());
+                        createCountdownTimer(MainActivity.workoutPlan[exercise].getRest_time_minutes()
+                                , MainActivity.workoutPlan[exercise].getRest_time_seconds());
                     });
                     while (!btn_Sets.isEnabled()) {
                     }
@@ -98,7 +149,7 @@ public class TrainingActivity extends AppCompatActivity {
     }
 
     private void createCountdownTimer(int min, int sec) {
-        int time = min * 60 + sec + 30;
+        int time = min * 60 + sec;
         progressBar.setMax(time * 1000);
         countDownTimer = new CountDownTimer(time * 1000, 10) {
             @Override
@@ -125,26 +176,5 @@ public class TrainingActivity extends AppCompatActivity {
     }
 
 
-    private void setPullUp() {
-        exercises[0] = new GeneralExercise(4, 7, 3, 0);
-        exercises[0].setNAME("Pull Ups");
-        exercises[0].setINFO("Pull Ups - A pulling exercise for the Back and biceps");
-        exercises[0].setMUSCLE_GROUP(MuscleGroups.Back);
-        exercises[0].setSec_MUSCLE_GROUPS(new MuscleGroups[]{MuscleGroups.RearDelts, MuscleGroups.Biceps});
-    }
 
-    private void setPushUp() {
-        exercises[1] = new GeneralExercise(4, 20, 3, 0);
-        exercises[1].setNAME("Push Ups");
-        exercises[1].setINFO("Push Ups - A pushing exercise for the chest and triceps");
-        exercises[1].setMUSCLE_GROUP(MuscleGroups.Chest);
-        exercises[1].setSec_MUSCLE_GROUPS(new MuscleGroups[]{MuscleGroups.FrontDelts, MuscleGroups.Triceps});
-    }
-
-    private void setDragonFly() {
-        exercises[2] = new GeneralExercise(3, 10, 1, 30);
-        exercises[2].setNAME("Dragon Fly");
-        exercises[2].setINFO("Dragon Fly - one of the hardest abs' exercises there is");
-        exercises[2].setMUSCLE_GROUP(MuscleGroups.LowerAbs);
-    }
 }

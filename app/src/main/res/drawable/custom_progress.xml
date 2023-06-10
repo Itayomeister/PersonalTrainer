@@ -7,7 +7,7 @@
             android:thickness="25dp"
             android:useLevel="false">
 
-            <solid android:color="#D2EDFC"/>
+            <solid android:color="#FFD699"/>
 
         </shape>
 
@@ -16,10 +16,10 @@
     <item android:id="@android:id/progress">
         <shape
             android:shape="ring"
-            android:thickness="20dp"
+            android:thickness="25dp"
             android:useLevel="true">
 
-            <solid android:color="#287CF6"/>
+            <solid android:color="#FF8C00"/>
 
         </shape>
 

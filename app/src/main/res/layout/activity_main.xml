@@ -7,21 +7,19 @@
     tools:context=".Activities.MainActivity"
     android:id="@+id/mainLayout">
 
-
-
-
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/bottomNav"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_nav_menu"/>
+        app:menu="@menu/bottom_nav_menu"
+        style="@style/Theme.RoadToBattlefield"/>
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/topAppBar_Layout">
+        android:id="@+id/topAppBar_Layout"
+        style="@style/Theme.RoadToBattlefield">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
@@ -38,7 +36,8 @@
         android:layout_height="match_parent"
         android:id="@+id/drawerLayout"
         android:layout_below="@id/topAppBar_Layout"
-        android:theme="@style/ThemeOverlay.AppCompat">
+        android:theme="@style/ThemeOverlay.AppCompat"
+        style="@style/Theme.RoadToBattlefield">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -59,13 +58,8 @@
             android:layout_gravity="start"
             app:itemTextColor="@drawable/nav_bg"
             app:itemIconTint="@drawable/nav_bg"
-            android:background="@color/purple_200" />
-
-
+            android:theme="@style/Theme.RoadToBattlefield"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
-
-
-
 
 </RelativeLayout>

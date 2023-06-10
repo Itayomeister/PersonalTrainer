@@ -2,6 +2,8 @@ package com.itay.roadtobattlefield.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,54 +12,76 @@ import android.widget.Toast;
 
 import com.itay.roadtobattlefield.Classes.Complaint;
 import com.itay.roadtobattlefield.Classes.DAO;
+import com.itay.roadtobattlefield.Classes.Trainee;
 import com.itay.roadtobattlefield.DAOtype;
+import com.itay.roadtobattlefield.NetworkReceiver;
 import com.itay.roadtobattlefield.R;
 
 public class ContactUsActivity extends AppCompatActivity {
 
-    Button btnSend;
-    EditText editTxt_name, editTxt_phone, editTxt_complaint;
-    String name, email, complaint, phone;
-    DAO dao;
+    private Button btnSend;
+    private String complaint;
+    private EditText editTxt_complaint;
+    private Trainee trainee;
+    private DAO dao;
+
+    private NetworkReceiver networkReceiver;
+    private IntentFilter intentFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_us);
 
+        networkReceiver = new NetworkReceiver();
+        intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+
         btnSend = findViewById(R.id.sendApplication_btn);
-        editTxt_name = findViewById(R.id.name_editTxt);
-        editTxt_phone = findViewById(R.id.phoneNumber_editTxt);
         editTxt_complaint = findViewById(R.id.application_editTxt);
 
-        editTxt_name.setText(MainActivity.trainee.getFullName());
+        trainee = MainActivity.trainee;
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendData();
+                if (editTxt_complaint.getText().length() == 0)
+                    Toast.makeText(ContactUsActivity.this, "Make sure you wrote the complaint", Toast.LENGTH_SHORT).show();
+                else if (MainActivity.networkStatus){
+                    sendData();
+                }
+                else
+                    Toast.makeText(ContactUsActivity.this, "Check for Internet connection to send", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    void sendData(){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Register the receiver when the activity is resumed
+        registerReceiver(networkReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Unregister the receiver when the activity is paused
+        unregisterReceiver(networkReceiver);
+    }
+
+    void sendData() {
         dao = new DAO(DAOtype.Complaint);
 
-        name = MainActivity.trainee.getFullName();
-        email = MainActivity.trainee.getEmail();
-        phone = MainActivity.trainee.getPhoneNum();
         complaint = editTxt_complaint.getText().toString();
-        dao.addComplaint(new Complaint(name, email, phone, complaint)).addOnSuccessListener(suc -> {
-            Toast.makeText(this, "Added complaint of: " + name, Toast.LENGTH_SHORT).show();
+        dao.addComplaint(new Complaint(trainee, complaint)).addOnSuccessListener(suc -> {
+            Toast.makeText(this, "Added complaint of: " + trainee.getFullName(), Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(er -> {
             Toast.makeText(this, "error " + er.getMessage(), Toast.LENGTH_SHORT).show();
         });
         resetAllFields();
     }
 
-    void resetAllFields(){
+    void resetAllFields() {
         editTxt_complaint.setText("");
-        editTxt_phone.setText("");
-        editTxt_name.setText("");
     }
 }

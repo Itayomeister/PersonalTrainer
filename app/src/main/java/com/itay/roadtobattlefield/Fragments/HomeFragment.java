@@ -1,5 +1,6 @@
 package com.itay.roadtobattlefield.Fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -11,47 +12,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.itay.roadtobattlefield.Activities.MainActivity;
 import com.itay.roadtobattlefield.Activities.SettingsActivity;
+import com.itay.roadtobattlefield.Activities.TrainingActivity;
+import com.itay.roadtobattlefield.Classes.WorkoutGenerator;
 import com.itay.roadtobattlefield.R;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-
-    RadioButton radioButton_hard, radioButton_easy;
-
     static public Button generatePlan;
     static public TextView plan, error;
 
-    static public Button submit;
-    static public EditText txt_distance;
-    static public EditText txt_pullups;
-    static public EditText txt_pushups;
-
-    private String easyPlan = "Hello trainer! \n" +
-            "You chose the easy difficulty \n" +
-            "Here is your plan: \n" +
-            "Run for 15 min \n" +
-            "Perform 20 pushups, pullups and situps \n" +
-            "Good Luck!";
-
-    private String hardPlan = "Hello trainer! \n" +
-            "You chose the hard difficulty, BRAVO! \n" +
-            "Here is your plan: \n" +
-            "Run for 30 min \n" +
-            "Perform 40 pushups, pullups and situps \n" +
-            "Good Luck!";
-
-    public String txt = "Please generate a plan";
-
-    String distance, pullups, pushups;
-
-    private boolean planHard = false, planExist = false;
-    static public boolean hard = false, settingsChecked = false;
+    static public Button startTraining;
+    static public String txt = "Please generate a plan";
 
 
     @Override
@@ -77,39 +54,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         plan.setText(txt);
         generatePlan = view.findViewById(R.id.btn_training);
 
-        radioButton_easy = SettingsActivity.radioButton_easy;
-        radioButton_hard = SettingsActivity.radioButton_hard;
-
-        txt_distance = view.findViewById(R.id.editTextRunningDistance);
-        txt_pullups = view.findViewById(R.id.editTextSetsForPullups);
-        txt_pushups = view.findViewById(R.id.editTextSetsForPushups);
-
-        submit = view.findViewById(R.id.btn_SubmitData);
+        startTraining = view.findViewById(R.id.btn_startTrain);
         error = view.findViewById(R.id.txt_error);
 
-        submit.setOnClickListener(new View.OnClickListener() {
+        startTraining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(txt_distance.getText().toString().matches("") || txt_pullups.getText().toString().matches("") || txt_pushups.getText().toString().matches("")){
-                    error.setText("Please fill in all fields");
-                    error.setTextColor(Color.RED);
-                }
-
-                else {
-                    distance = txt_distance.getText().toString();
-                    txt_distance.setText("");
-                    pullups = txt_pullups.getText().toString();
-                    txt_pullups.setText("");
-                    pushups = txt_pushups.getText().toString();
-                    txt_pushups.setText("");
-
-                    plan.setText("dis: " + distance +"\n"+
-                            "pull: " + pullups +"\n" +
-                            "push: " + pushups);
-                    error.setText("");
-                }
-
+                if (MainActivity.workoutPlan == null) {
+                    Toast.makeText(getContext(), "Please make sure to generate a plan!", Toast.LENGTH_SHORT).show();
+                } else
+                    startActivity(new Intent(getContext(), TrainingActivity.class));
             }
         });
 
@@ -130,25 +84,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     public void generatePlanInTxtView() {
 
-        if(!settingsChecked && !planExist) {
-             plan.setText("Check out the settings first to adjust the difficulty! \n" +
-                     easyPlan);
-             planExist = true;
-             return;
-        }
-
-        else if ((plan.getText() != "Please generate a plan") && ((planHard && hard) || (!hard && !planHard && planExist))) {
-            Toast.makeText(getActivity(), "you already have the right plan!",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        else if (hard) {
-            txt = hardPlan;
-            planHard = true;
-        } else {
-            txt = easyPlan;
-            planHard = false;
+        MainActivity.workoutGenerator = new WorkoutGenerator();
+        txt = "";
+        for (int i = 0; i < MainActivity.workoutPlan.length; i++) {
+            txt = txt + MainActivity.workoutPlan[i].getNAME() + "\n";
         }
         plan.setText(txt);
     }

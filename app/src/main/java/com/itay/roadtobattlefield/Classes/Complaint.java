@@ -1,37 +1,12 @@
 package com.itay.roadtobattlefield.Classes;
 
 public class Complaint {
-    private  String name, email, phone, complaint;
+    private String complaint;
+    private Trainee trainee;
 
-    public Complaint(String name, String email, String phone, String complaint) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
+    public Complaint(Trainee trainee, String complaint) {
+        this.trainee = trainee;
         this.complaint = complaint;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getComplaint() {
@@ -41,4 +16,13 @@ public class Complaint {
     public void setComplaint(String complaint) {
         this.complaint = complaint;
     }
+
+    public Trainee getTrainee() {
+        return trainee;
+    }
+
+    public void setTrainee(Trainee trainee) {
+        this.trainee = trainee;
+    }
+
 }
