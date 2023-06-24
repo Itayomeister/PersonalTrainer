@@ -35,6 +35,7 @@ import com.itay.roadtobattlefield.Classes.StrengthExercises.GeneralExercise;
 import com.itay.roadtobattlefield.Classes.WorkoutGenerator;
 import com.itay.roadtobattlefield.DAOtype;
 import com.itay.roadtobattlefield.Fragments.HomeFragment;
+import com.itay.roadtobattlefield.Fragments.StatisticsFragment;
 import com.itay.roadtobattlefield.R;
 import com.itay.roadtobattlefield.Fragments.RunningFragment;
 import com.itay.roadtobattlefield.Fragments.ToDoListFragment;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment homeFragment = new HomeFragment();
     ToDoListFragment toDoListFragment = new ToDoListFragment();
     RunningFragment runningFragment = new RunningFragment();
+    StatisticsFragment statisticsFragment = new StatisticsFragment();
     public static WorkoutGenerator workoutGenerator;
     public static GeneralExercise[] workoutPlan;
 
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     FrameLayout frame_main;
 
-    Boolean firsty = true;
+    static public Boolean firsty = true, loaded = false;
 
     int bottomNavHeight = 0;
 
@@ -95,9 +97,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (firsty) {
             userId = 0;
-            sharedPrefEditor.putInt("userId RTB", userId);
+            sharedPrefEditor.putInt("userId RTB", -1);
             startActivity(new Intent(MainActivity.this, SignUpActivity.class));
-        }else {
+        } else {
             loadData();
         }
 
@@ -167,22 +169,25 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().remove(homeFragment).commit();
                         getSupportFragmentManager().beginTransaction().remove(toDoListFragment).commit();
                         getSupportFragmentManager().beginTransaction().remove(runningFragment).commit();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frame, runningFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame, statisticsFragment).commit();
                         bottomNavView = (int) View.INVISIBLE;
                         break;
                     case R.id.ItemMain:
-                        getSupportFragmentManager().beginTransaction().remove(runningFragment).commit();
+                        getSupportFragmentManager().beginTransaction().remove(statisticsFragment).commit();
                         bottomNavView = (int) View.VISIBLE;
                         bottomNavigationView.setSelectedItemId(R.id.ItemHome);
                         break;
-                    case R.id.ItemRate:
+                    case R.id.ItemFirsty:
                         startActivity(new Intent(MainActivity.this, TurnOffFirstyActivity.class));
                         break;
+                    case R.id.ItemRate:
+                        startActivity(new Intent(MainActivity.this, RateActivity.class));
+                        break;
                     case R.id.ItemShare:
-                        startActivity(new Intent(MainActivity.this, TrainingActivity.class));
+                        Toast.makeText(MainActivity.this, "Coming soon!", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ItemPrivacy:
-                        Toast.makeText(MainActivity.this, "Privacy", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Privacy - All the copyrights are saved to ItayTamari", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ItemExit:
                         new MaterialAlertDialogBuilder(MainActivity.this)
@@ -197,13 +202,15 @@ public class MainActivity extends AppCompatActivity {
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        finish();
+                                        refreshData();
                                     }
                                 })
                                 .show();
                         break;
                     case R.id.ItemContactUs:
                         startActivity(new Intent(MainActivity.this, ContactUsActivity.class));
+                    case R.id.ItemFriends:
+                        Toast.makeText(MainActivity.this, "Coming soon!", Toast.LENGTH_SHORT).show();
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 bottomNavigationView.setVisibility(bottomNavView);
@@ -291,15 +298,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        userId = sharedPreferences.getInt("userId RTB", 0);
-        Toast.makeText(this, "id: " + userId, Toast.LENGTH_SHORT).show();
+        userId = sharedPreferences.getInt("userId RTB", -1);
         String objectKey = String.valueOf(userId);
         databaseReference.child(objectKey).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DataSnapshot dataSnapshot = task.getResult();
                 if (dataSnapshot.exists()) {
                     trainee = dataSnapshot.getValue(Trainee.class);
-                    Toast.makeText(this, "Loaded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Hello " + trainee.getFullName(), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "did not found", Toast.LENGTH_SHORT).show();
                 }

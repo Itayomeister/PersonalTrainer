@@ -9,7 +9,6 @@
         <item
             android:id="@+id/ItemStatistics"
             android:title="Statistics"/>
-
     </group>
 
     <item android:title="Management">
@@ -20,6 +19,9 @@
             <item
                 android:id="@+id/ItemFriends"
                 android:title="Friends"/>
+            <item
+                android:id="@+id/ItemFirsty"
+                android:title="Firsty"/>
         </menu>
     </item>
 

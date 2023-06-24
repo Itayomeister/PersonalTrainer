@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.StatisticsFragment">
+
+    <TextView
+        android:id="@+id/tvAverageDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Average Distance: "
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp" />
+
+    <TextView
+        android:id="@+id/tvAverageDistanceValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/tvAverageDistance"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp" />
+
+    <!-- Maximum Running Distance -->
+    <TextView
+        android:id="@+id/tvMaxDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Maximum Distance: "
+        android:textSize="16sp"
+        android:layout_below="@id/tvAverageDistance"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp" />
+
+    <TextView
+        android:id="@+id/tvMaxDistanceValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/tvMaxDistance"
+        android:layout_below="@id/tvAverageDistance"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp" />
+
+    <!-- Average Running Speed -->
+    <TextView
+        android:id="@+id/tvAverageSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Average Speed: "
+        android:textSize="16sp"
+        android:layout_below="@id/tvMaxDistance"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp" />
+
+    <TextView
+        android:id="@+id/tvAverageSpeedValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/tvAverageSpeed"
+        android:layout_below="@id/tvMaxDistance"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp" />
+
+    <!-- Maximum Running Speed -->
+    <TextView
+        android:id="@+id/tvMaxSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Maximum Speed: "
+        android:textSize="16sp"
+        android:layout_below="@id/tvAverageSpeed"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp" />
+
+    <TextView
+        android:id="@+id/tvMaxSpeedValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/tvMaxSpeed"
+        android:layout_below="@id/tvAverageSpeed"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"/>
+
+    <TextView
+        android:id="@+id/tvAverageTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Average Time: "
+        android:textSize="16sp"
+        android:layout_below="@id/tvMaxSpeed"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp" />
+
+    <TextView
+        android:id="@+id/tvAverageTimeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/tvAverageTime"
+        android:layout_below="@id/tvMaxSpeed"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp" />
+
+    <!-- Maximum Running Time -->
+    <TextView
+        android:id="@+id/tvMaxTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Maximum Time: "
+        android:textSize="16sp"
+        android:layout_below="@id/tvAverageTime"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp" />
+
+    <TextView
+        android:id="@+id/tvMaxTimeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/tvMaxTime"
+        android:layout_below="@id/tvAverageTime"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp" />
+
+
+</RelativeLayout>

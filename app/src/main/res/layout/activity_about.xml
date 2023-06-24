@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/card"
         android:layout_centerInParent="true"
-        app:cardElevation="10dp"
+        app:cardElevation="50dp"
         app:cardCornerRadius="5dp"
         android:scaleY="5"
         android:scaleX="5">
@@ -35,13 +35,13 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="2dp"
                 android:id="@+id/cardImg"
-                android:src="@drawable/ic_baseline_people_24"/>
+                android:src="@drawable/portrait" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,6 +58,16 @@
 
 
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="325sp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/infoAbout"
+        android:text="This app was made by Itay Tamari, and 18 year old kid from Israel"
+        android:layout_below="@+id/card"
+        android:layout_marginTop="125dp"
+        android:textSize="20sp"/>
 
 
 

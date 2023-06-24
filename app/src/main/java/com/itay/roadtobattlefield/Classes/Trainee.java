@@ -12,6 +12,7 @@ public class Trainee implements Serializable {
             topRunningTime = 0, averageRunningTime = 0,
             topRunningDistance = 0, averageRunningDistance = 0,
             trainingAmount = 0, runningAmount = 0;
+    private float rating = 0;
     private TraineeLevel traineeLevel = TraineeLevel.Begginer;
 
     static public ArrayList<String> checkBoxes = new ArrayList<>();
@@ -136,5 +137,13 @@ public class Trainee implements Serializable {
 
     public void setRunningAmount(double runningAmount) {
         this.runningAmount = runningAmount;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 }

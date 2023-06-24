@@ -7,9 +7,9 @@
     tools:context=".Activities.SettingsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topSettingsBar_Layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/topSettingsBar_Layout">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topSettingsBar"
@@ -17,37 +17,114 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_white_24"
-            app:title="Settings"/>
+            app:title="Settings" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/dificullty"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/dificullty_hard"
-            android:text="Hard      "/>
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/dificullty_easy"
-            android:text="Easy"
-            android:checked="true"/>
-
-    </RadioGroup>
 
     <TextView
+        android:id="@+id/textName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txt_chooseDif"
+        android:layout_below="@+id/imageView_User"
+        android:layout_marginTop="15sp"
+        android:paddingStart="16dp"
+        android:text="Name"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textName"
+        android:hint="Enter your name"
+        android:inputType="textPersonName"
+        android:paddingStart="16dp" />
+
+    <TextView
+        android:id="@+id/textEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editName"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp"
+        android:text="Email"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textEmail"
+        android:hint="Enter your email address"
+        android:inputType="textEmailAddress"
+        android:paddingStart="16dp" />
+
+    <TextView
+        android:id="@+id/textPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editEmail"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp"
+        android:text="Phone Number"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textPhoneNumber"
+        android:hint="Enter your phone number"
+        android:inputType="phone"
+        android:paddingStart="16dp" />
+
+    <TextView
+        android:id="@+id/textSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editPhoneNumber"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp"
+        android:text="Choose an option"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/spinnerOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textSpinner"
+        android:entries="@array/traineeLevel"
+        android:paddingStart="16dp" />
+
+    <Button
+        android:id="@+id/btnSaveSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerOptions"
         android:layout_centerHorizontal="true"
-        android:text="Please Choose Difficulty: \n"
-        android:layout_above="@+id/dificullty"/>
+        android:layout_marginTop="26dp"
+        android:text="Save Changes" />
+
+    <ImageButton
+        android:id="@+id/btn_takePicture"
+        android:layout_width="45sp"
+        android:layout_height="45sp"
+        android:src="@drawable/ic_baseline_photo_camera_24"
+        android:layout_toEndOf="@id/imageView_User"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="-45sp"
+        android:layout_below="@+id/imageView_User"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView_User"
+        android:src="@drawable/ic_baseline_person_24"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/topSettingsBar_Layout"
+        android:layout_marginTop="16dp"
+        app:civ_border_color="#FFD699"
+        app:civ_border_width="1.5sp"
+        app:civ_border_overlay="true"/>
 
 </RelativeLayout>

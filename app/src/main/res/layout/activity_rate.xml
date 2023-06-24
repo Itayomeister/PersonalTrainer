@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.RateActivity">
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="310dp"
+        android:scaleY="1.25"
+        android:scaleX="1.25"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_rate"
+        android:layout_centerHorizontal="true"
+        android:text="Save Rating"
+        android:layout_below="@+id/ratingBar"
+        android:layout_marginTop="15dp"/>
+
+</RelativeLayout>
